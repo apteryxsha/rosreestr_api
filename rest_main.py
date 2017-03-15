@@ -6,5 +6,6 @@ for line in ins:
     output = open("result.txt","a")
     output.write(r.text)
     output.close()
+print(sear)
 
 
