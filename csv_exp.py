@@ -1,6 +1,7 @@
-import csv, requests
+import csv, requests, json
 arr = []
-with open('adr_lst.csv') as cs:
+rw = 0
+with open('adr_tst.csv') as cs:
     rdr = csv.DictReader(cs)
     for row in rdr:
         st = row['street']
@@ -10,4 +11,18 @@ with open('adr_lst.csv') as cs:
         output = open("result.txt", "a")
         output.write(r.text)
         output.close()
+        rw = rw + 1
         print('Seek for ' + st,hs)
+        print(r.text)
+        js_pars = json.loads(r.text)
+        rjs = js_pars['objectId']
+        js_out = open('js_out.csv','w')
+        csvwriter = csv.write(js_out)
+        for jsd in rjs:
+            if count == 0:
+                header = jsd.keys()
+                csvwriter.writerow(header)
+                count+=1
+            csvwriter.writerow(jsd.values())
+        js_out.close()
+print(rw)

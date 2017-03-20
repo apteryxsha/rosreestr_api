@@ -1,12 +1,32 @@
-import csv, json, sys
+employee_data = ''
+import json
 
-input = open('result.json','r')
-data = json.load(input)
-input.close()
+import csv
 
-output = csv.writer(sys.stdout)
+employee_parsed = json.loads(employee_data)
 
-output.writerow(data[0].keys())  # header row
+emp_data = employee_parsed['employee_details']
 
-for row in data:
-    output.writerow(row.values())
+# open a file for writing
+
+employ_data = open('EmployData.csv', 'w')
+
+# create the csv writer object
+
+csvwriter = csv.writer(employ_data)
+
+count = 0
+
+for emp in emp_data:
+
+      if count == 0:
+
+             header = emp.keys()
+
+             csvwriter.writerow(header)
+
+             count += 1
+
+      csvwriter.writerow(emp.values())
+
+employ_data.close()
